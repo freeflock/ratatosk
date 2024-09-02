@@ -21,8 +21,8 @@ class TextToImageInstructions(DiffusionInstructions):
 
 class ChatInstructions(BaseModel):
     prompt: str
-    history: List[str]
-    system_instructions: str
+    history: List[str] = []
+    system_instructions: str = ""
     max_new_tokens: int = 750
     temperature: float = 0.8
     repetition_penalty: float = 1.1
