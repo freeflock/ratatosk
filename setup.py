@@ -8,7 +8,7 @@ installation_requirements = [
 setup(
     name="ratatosk_errands",
     description="errands for ratatosk",
-    version="0.7",
+    version="0.9",
     url="https://github.com/freeflock/ratatosk",
     author="(~)",
     package_dir={"": "packages"},
