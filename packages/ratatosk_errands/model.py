@@ -1,3 +1,5 @@
+from typing import List
+
 from pydantic import BaseModel
 
 
@@ -17,8 +19,18 @@ class TextToImageInstructions(DiffusionInstructions):
     height: int = 1024
 
 
+class ChatInstructions(BaseModel):
+    prompt: str
+    history: List[str]
+    max_new_tokens: int = 750
+    temperature: float = 0.8
+    repetition_penalty: float = 1.1
+
+
 class Errand(BaseModel):
-    instructions: TextToImageInstructions | ImageToImageInstructions
+    instructions: (TextToImageInstructions |
+                   ImageToImageInstructions |
+                   ChatInstructions)
     origin: str
     destination: str
     identifier: str
