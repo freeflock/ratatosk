@@ -5,9 +5,9 @@ from pydantic import BaseModel
 
 class DiffusionInstructions(BaseModel):
     prompt: str
-    negative_prompt: str = ""
-    num_inference_steps: int = 28
-    guidance_scale: float = 7.0
+    negative_prompt: str | None = None
+    num_inference_steps: int | None = None
+    guidance_scale: float | None = None
 
 
 class ImageToImageInstructions(DiffusionInstructions):
@@ -15,17 +15,17 @@ class ImageToImageInstructions(DiffusionInstructions):
 
 
 class TextToImageInstructions(DiffusionInstructions):
-    width: int = 1024
-    height: int = 1024
+    width: int | None = None
+    height: int | None = None
 
 
 class ChatInstructions(BaseModel):
     prompt: str
     history: List[str] = []
-    system_instructions: str = ""
-    max_new_tokens: int = 750
-    temperature: float = 0.8
-    repetition_penalty: float = 1.1
+    system_instructions: str | None = None
+    max_new_tokens: int | None = None
+    temperature: float | None = None
+    repetition_penalty: float | None = None
 
 
 class Errand(BaseModel):
