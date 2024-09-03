@@ -11,7 +11,7 @@ class DiffusionInstructions(BaseModel):
 
 
 class ImageToImageInstructions(DiffusionInstructions):
-    encoded_base_image: str
+    base_image_identifier: str
 
 
 class TextToImageInstructions(DiffusionInstructions):
