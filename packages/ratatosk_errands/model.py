@@ -3,11 +3,7 @@ from typing import List
 from pydantic import BaseModel
 
 
-class ModelInstructions(BaseModel):
-    pass
-
-
-class DiffusionInstructions(ModelInstructions):
+class DiffusionInstructions(BaseModel):
     prompt: str
     image_identifier: str
     negative_prompt: str | None = None
@@ -24,7 +20,7 @@ class TextToImageInstructions(DiffusionInstructions):
     height: int | None = None
 
 
-class ChatInstructions(ModelInstructions):
+class ChatInstructions(BaseModel):
     prompt: str
     history: List[str] = []
     system_instructions: str | None = None
@@ -34,25 +30,21 @@ class ChatInstructions(ModelInstructions):
 
 
 class Errand(BaseModel):
-    instructions: ModelInstructions
+    instructions: TextToImageInstructions | ImageToImageInstructions | ChatInstructions
     origin: str
     destination: str
     errand_identifier: str
     timestamp: float
 
 
-class ModelResult(BaseModel):
-    pass
-
-
-class DiffusionResult(ModelResult):
+class DiffusionReply(BaseModel):
     image_identifier: str
 
 
-class ChatResult(ModelResult):
+class ChatReply(BaseModel):
     message: str
 
 
-class Reply(BaseModel):
+class Echo(BaseModel):
     errand: Errand
-    result: ModelResult
+    reply: DiffusionReply | ChatReply

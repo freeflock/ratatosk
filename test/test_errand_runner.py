@@ -10,12 +10,12 @@ def test_text_to_image_errand():
     with TestClient(app) as client:
         errand = Errand(
             instructions=TextToImageInstructions(
-                prompt="Ratatosk",
-                image_identifier="green_pastures"
+                prompt="ratatosk ascending yggdrasil",
+                image_identifier="ratatosk"
             ),
-            origin="ratatosk",
-            destination="ratatosk",
-            errand_identifier="green_pastures",
+            origin="test",
+            destination="test",
+            errand_identifier="test",
             timestamp=time.time()
         )
         response = client.post("/give_errand", json=errand.model_dump())
@@ -30,9 +30,9 @@ def test_image_to_image_errand():
                 image_identifier="squirrels",
                 base_image_identifier="green_pastures"
             ),
-            origin="ratatosk",
-            destination="ratatosk",
-            errand_identifier="squirrels",
+            origin="test",
+            destination="test",
+            errand_identifier="test",
             timestamp=time.time()
         )
         response = client.post("/give_errand", json=errand.model_dump())

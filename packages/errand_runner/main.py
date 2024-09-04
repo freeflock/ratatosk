@@ -24,4 +24,6 @@ async def give_errand(errand: Errand):
             queue = "image_to_image"
         elif isinstance(errand.instructions, ChatInstructions):
             queue = "chat"
+        else:
+            raise ValueError(f"unknown instruction type: {errand.instructions}")
         rabbit.channel.basic_publish(exchange="", routing_key=queue, body=errand.model_dump_json())
