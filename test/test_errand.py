@@ -1,22 +1,21 @@
 import time
 
-from dotenv import load_dotenv
 from starlette.testclient import TestClient
 
+from errand_runner.main import app
 from ratatosk_errands.model import Errand, TextToImageInstructions, ChatInstructions, ImageToImageInstructions
 
 
 def test_text_to_image_errand():
-    load_dotenv("../ratatosk.env")
-    from ratatosk.main import app
     with TestClient(app) as client:
         errand = Errand(
             instructions=TextToImageInstructions(
-                prompt="a textured oil painting of green pastures and still waters"
+                prompt="Ratatosk",
+                image_identifier="green_pastures"
             ),
             origin="ratatosk",
             destination="ratatosk",
-            identifier="green_pastures",
+            errand_identifier="green_pastures",
             timestamp=time.time()
         )
         response = client.post("/give_errand", json=errand.model_dump())
@@ -24,17 +23,16 @@ def test_text_to_image_errand():
 
 
 def test_image_to_image_errand():
-    load_dotenv("../ratatosk.env")
-    from ratatosk.main import app
     with TestClient(app) as client:
         errand = Errand(
             instructions=ImageToImageInstructions(
                 prompt="a flock of squirrels",
+                image_identifier="squirrels",
                 base_image_identifier="green_pastures"
             ),
             origin="ratatosk",
             destination="ratatosk",
-            identifier="squirrels",
+            errand_identifier="squirrels",
             timestamp=time.time()
         )
         response = client.post("/give_errand", json=errand.model_dump())
@@ -42,8 +40,6 @@ def test_image_to_image_errand():
 
 
 def test_chat_errand():
-    load_dotenv("../ratatosk.env")
-    from ratatosk.main import app
     with TestClient(app) as client:
         errand = Errand(
             instructions=ChatInstructions(
@@ -51,7 +47,7 @@ def test_chat_errand():
             ),
             origin="ratatosk",
             destination="ratatosk",
-            identifier="ratatosk",
+            errand_identifier="ratatosk",
             timestamp=time.time()
         )
         response = client.post("/give_errand", json=errand.model_dump())
