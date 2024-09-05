@@ -13,8 +13,8 @@ def test_text_to_image_errand():
                 prompt="ratatosk ascending yggdrasil",
                 image_identifier="ratatosk"
             ),
-            origin="test",
-            destination="test",
+            origin="localhost:33333",
+            destination="localhost:33333",
             errand_identifier="test",
             timestamp=time.time()
         )
@@ -30,8 +30,8 @@ def test_image_to_image_errand():
                 image_identifier="squirrels",
                 base_image_identifier="green_pastures"
             ),
-            origin="test",
-            destination="test",
+            origin="localhost:33333",
+            destination="localhost:33333",
             errand_identifier="test",
             timestamp=time.time()
         )
@@ -45,8 +45,8 @@ def test_chat_errand():
             instructions=ChatInstructions(
                 prompt=""
             ),
-            origin="ratatosk",
-            destination="ratatosk",
+            origin="localhost:33333",
+            destination="localhost:33333",
             errand_identifier="ratatosk",
             timestamp=time.time()
         )

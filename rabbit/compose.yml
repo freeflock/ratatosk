@@ -2,7 +2,7 @@ services:
   rabbit:
     image: rabbitmq:3
     ports:
-      - "23055:5672"
+      - "39393:5672"
     volumes:
       - ./rabbit_setup.sh:/atelier/rabbit_setup.sh
     command: >

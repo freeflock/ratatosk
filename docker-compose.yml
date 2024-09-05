@@ -1,0 +1,10 @@
+services:
+  errand_runner:
+    image: josiahdc/errand_runner:0.1
+    build:
+      context: errand_runner
+
+  echo_runner:
+    image: josiahdc/echo_runner:0.1
+    build:
+      context: echo_runner
