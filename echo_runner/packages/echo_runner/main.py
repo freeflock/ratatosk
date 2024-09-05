@@ -28,6 +28,8 @@ def main():
         rabbit.channel.basic_qos(prefetch_count=1)
         rabbit.channel.queue_declare(queue="echo")
         rabbit.channel.basic_consume(queue="echo", on_message_callback=receive_echo)
+        logger.info(f"setup complete, listening for echos")
+        rabbit.channel.start_consuming()
 
 
 if __name__ == '__main__':
