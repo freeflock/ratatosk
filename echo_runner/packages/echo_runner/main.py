@@ -16,11 +16,14 @@ def receive_echo(channel, method, properties, body):
     try:
         logger.info(f"( ) receiving echo: {body}")
         echo = Echo.model_validate_json(body)
-        requests.post(f"http://{echo.errand.destination}/receive_echo", json=echo.model_dump_json())
-        channel.basic_ack(delivery_tag=method.delivery_tag)
+        response = requests.post(f"http://{echo.errand.destination}/receive_echo", json=echo.model_dump())
+        if response.status_code != 200:
+            raise RuntimeError(f"bad status code when relaying echo: <{response.status_code}> {response.text}")
         logger.info(f"(*) relayed echo: {body}")
     except Exception as error:
         logger.error(f"(!) echo failed with error: {error}")
+    finally:
+        channel.basic_ack(delivery_tag=method.delivery_tag)
 
 
 def main():
