@@ -11,7 +11,7 @@ class DiffusionInstructions(BaseModel):
 
 class ImageToImageInstructions(DiffusionInstructions):
     base_image_identifier: str
-    strength: float | None
+    strength: float | None = None
 
 
 class TextToImageInstructions(DiffusionInstructions):
