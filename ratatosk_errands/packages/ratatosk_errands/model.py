@@ -7,19 +7,22 @@ class DiffusionInstructions(BaseModel):
     negative_prompt: str | None = None
     num_inference_steps: int | None = None
     guidance_scale: float | None = None
+    width: int | None = None
+    height: int | None = None
 
 
 class ImageToImageInstructions(DiffusionInstructions):
+    image_to_image: bool = True
     base_image_identifier: str
     strength: float | None = None
 
 
 class TextToImageInstructions(DiffusionInstructions):
-    width: int | None = None
-    height: int | None = None
+    text_to_image: bool = True
 
 
 class ChatInstructions(BaseModel):
+    chat: bool = True
     prompt: str
     max_new_tokens: int | None = None
     temperature: float | None = None
