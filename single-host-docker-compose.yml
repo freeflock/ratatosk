@@ -1,0 +1,34 @@
+services:
+  errand_runner:
+    image: josiahdc/errand_runner:0.1
+    build:
+      context: errand_runner
+    networks:
+      - ratatosk
+    env_file:
+      - single_host_ratatosk.env
+
+  echo_runner:
+    image: josiahdc/echo_runner:0.1
+    build:
+      context: echo_runner
+    networks:
+      - ratatosk
+    env_file:
+      - single_host_ratatosk.env
+
+  rabbit:
+    image: rabbitmq:3
+    volumes:
+      - ./rabbit/rabbit_setup.sh:/atelier/rabbit_setup.sh
+    command: >
+      sh -c "/atelier/rabbit_setup.sh &
+      rabbitmq-server"
+    networks:
+      - ratatosk
+    env_file:
+      - single_host_ratatosk.env
+
+networks:
+  ratatosk:
+    driver: bridge
