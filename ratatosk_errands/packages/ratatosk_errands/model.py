@@ -1,3 +1,5 @@
+from typing import Dict
+
 from pydantic import BaseModel
 
 
@@ -29,8 +31,13 @@ class ChatInstructions(BaseModel):
     repetition_penalty: float | None = None
 
 
+class PromptTemplateInstructions(BaseModel):
+    prompt_name: str
+    input_variables: Dict[str, str] | None = None
+
+
 class Errand(BaseModel):
-    instructions: TextToImageInstructions | ImageToImageInstructions | ChatInstructions
+    instructions: TextToImageInstructions | ImageToImageInstructions | ChatInstructions | PromptTemplateInstructions
     origin: str
     destination: str
     errand_identifier: str

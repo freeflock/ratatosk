@@ -3,7 +3,8 @@ import os
 from fastapi import FastAPI
 
 from ratatosk_errands.adapter import Rabbit
-from ratatosk_errands.model import Errand, TextToImageInstructions, ImageToImageInstructions, ChatInstructions
+from ratatosk_errands.model import Errand, TextToImageInstructions, ImageToImageInstructions, ChatInstructions, \
+    PromptTemplateInstructions
 
 host = os.getenv("RABBIT_HOST")
 port = int(os.getenv("RABBIT_PORT"))
@@ -18,12 +19,15 @@ async def give_errand(errand: Errand):
         rabbit.channel.queue_declare(queue="text_to_image")
         rabbit.channel.queue_declare(queue="image_to_image")
         rabbit.channel.queue_declare(queue="chat")
+        rabbit.channel.queue_declare(queue="prompt_template")
         if isinstance(errand.instructions, TextToImageInstructions):
             queue = "text_to_image"
         elif isinstance(errand.instructions, ImageToImageInstructions):
             queue = "image_to_image"
         elif isinstance(errand.instructions, ChatInstructions):
             queue = "chat"
+        elif isinstance(errand.instructions, PromptTemplateInstructions):
+            queue = "prompt_template"
         else:
             raise ValueError(f"unknown instruction type: {errand.instructions}")
         rabbit.channel.basic_publish(exchange="", routing_key=queue, body=errand.model_dump_json())

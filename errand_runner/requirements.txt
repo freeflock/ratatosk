@@ -1,2 +1,2 @@
 fastapi[standard]==0.112.2
-ratatosk-errands==0.20
+ratatosk-errands==0.22
