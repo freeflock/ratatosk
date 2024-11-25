@@ -7,6 +7,8 @@ services:
       - ratatosk
     env_file:
       - single_host_ratatosk.env
+    depends_on:
+      - rabbit
 
   echo_runner:
     image: josiahdc/echo_runner:0.1
@@ -16,6 +18,8 @@ services:
       - ratatosk
     env_file:
       - single_host_ratatosk.env
+    depends_on:
+      - rabbit
 
   rabbit:
     image: rabbitmq:3

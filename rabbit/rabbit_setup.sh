@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "( ) rabbit setup awaiting server init..."
-sleep 1
+sleep 3
 rabbitmqctl await_startup
 echo "rabbit setup detected server init complete"
 rabbitmqctl add_user ratatosk $RABBIT_PASSWORD

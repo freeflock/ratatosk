@@ -12,13 +12,15 @@ host = os.getenv("RABBIT_HOST")
 port = int(os.getenv("RABBIT_PORT"))
 username = os.getenv("RABBIT_USERNAME")
 password = os.getenv("RABBIT_PASSWORD")
+API_KEY = os.getenv("API_KEY")
 
 
 def receive_echo(channel, method, properties, body):
     try:
         logger.info(f"( ) receiving echo: {body}")
         echo = Echo.model_validate_json(body)
-        response = requests.post(f"http://{echo.errand.destination}", json=echo.model_dump())
+        headers = {"x-api-key": API_KEY}
+        response = requests.post(f"http://{echo.errand.destination}", headers=headers, json=echo.model_dump())
         if response.status_code != 200:
             raise RuntimeError(f"bad status code when relaying echo: <{response.status_code}> {response.text}")
         logger.info(f"(*) relayed echo: {body}")
