@@ -1,4 +1,4 @@
-from typing import Dict
+from typing import Dict, List
 
 from pydantic import BaseModel
 
@@ -31,13 +31,21 @@ class ChatInstructions(BaseModel):
     repetition_penalty: float | None = None
 
 
+class DiscoveryInstructions(BaseModel):
+    message: str
+
+
 class PromptTemplateInstructions(BaseModel):
     prompt_name: str
     input_variables: Dict[str, str] | None = None
 
 
 class Errand(BaseModel):
-    instructions: TextToImageInstructions | ImageToImageInstructions | ChatInstructions | PromptTemplateInstructions
+    instructions: (TextToImageInstructions
+                   | ImageToImageInstructions
+                   | ChatInstructions
+                   | PromptTemplateInstructions
+                   | DiscoveryInstructions)
     origin: str
     destination: str
     errand_identifier: str
@@ -50,6 +58,9 @@ class DiffusionReply(BaseModel):
 
 class ChatReply(BaseModel):
     message: str
+
+class DiscoveryReply(BaseModel):
+    discovery_result: List[str]
 
 
 class Echo(BaseModel):
