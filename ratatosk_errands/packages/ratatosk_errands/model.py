@@ -65,4 +65,4 @@ class DiscoveryReply(BaseModel):
 
 class Echo(BaseModel):
     errand: Errand
-    reply: DiffusionReply | ChatReply
+    reply: DiffusionReply | ChatReply | DiscoveryReply
