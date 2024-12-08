@@ -1,6 +1,6 @@
 services:
   errand_runner:
-    image: josiahdc/errand_runner:0.2
+    image: josiahdc/errand_runner:0.3
     build:
       context: errand_runner
     networks:
@@ -9,7 +9,7 @@ services:
       - ratatosk.env
 
   echo_runner:
-    image: josiahdc/echo_runner:0.2
+    image: josiahdc/echo_runner:0.3
     build:
       context: echo_runner
     networks:
