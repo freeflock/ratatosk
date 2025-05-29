@@ -1,14 +1,14 @@
 from setuptools import setup
 
 installation_requirements = [
-    "pydantic==2.8.2",
+    "pydantic==2.11.5",
     "pika==1.3.2"
 ]
 
 setup(
     name="ratatosk_errands",
     description="errands for ratatosk",
-    version="0.25",
+    version="0.26",
     url="https://github.com/freeflock/ratatosk",
     author="(~)",
     package_dir={"": "packages"},
